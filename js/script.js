@@ -124,13 +124,14 @@ function addLoot() {
 
     lootItems.push(lootObject);
 
+    // state changed - save then update the interface
+    saveState();
+
     // clearing the fields
     document.getElementById("lootName").value = "";
     document.getElementById("lootValue").value = "";
     document.getElementById("lootQuantity").value = "";
 
-    // state changed - save then update the interface
-    saveState();
     updateUI();
 }
 
@@ -272,5 +273,7 @@ function splitLoot() {
 }
 
 // page load - restore state first, then render
-restoreState();
-updateUI();
+document.addEventListener("DOMContentLoaded", function() {
+    restoreState();
+    updateUI();
+});
