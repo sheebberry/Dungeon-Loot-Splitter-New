@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Sheeba Soliamani">
+    <title>Dungeon Loot Splitter</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!--title for project-->
+    <header>
+        <h1>Dungeon Loot Splitter</h1>
+        <p class="subtitle">Divide the spoils. Honor the party.</p>
+    </header>
+
+    <main>
+<!-- setting up panels for each subsection-->
+        <section class="panel" id="panel-party">
+            <h2>Party Setup</h2>
+            <label for="partySize">Number of Party Members:</label>
+            <input type="number" id="partySize" min="1" step="1" placeholder="e.g. 4">
+            <p class="error-msg" id="partySizeError"></p>
+            <button id="resetBtn" class="reset-btn">Reset All</button>
+        </section>
+<!--loot section-->
+        <section class="panel" id="panel-add">
+            <h2>Add Loot</h2>
+            <div class="form-group">
+                <label for="lootName">Loot Name:</label>
+                <input type="text" id="lootName" placeholder="e.g. Golden Chalice">
+            </div>
+            <div class="form-group">
+                <label for="lootValue">Loot Value:</label>
+                <input type="number" id="lootValue" min="0" step="0.01" placeholder="e.g. 150.00">
+            </div>
+            <div class="form-group">
+                <label for="lootQuantity">Quantity:</label>
+                <input type="number" id="lootQuantity" min="1" step="1" placeholder="e.g. 1">
+            </div>
+            <p class="error-msg" id="lootError"></p>
+            <button id="addLootBtn">Add Loot</button>
+        </section>
+<!--adding loot and cost of loot section-->
+        <section class="panel" id="panel-list">
+            <h2>Loot List</h2>
+
+            <div id="noLootMessage">No loot added.</div>
+
+            <div class="loot-table hidden" id="lootTable">
+                <div class="loot-header">Name</div>
+                <div class="loot-header">Value</div>
+                <div class="loot-header">Quantity</div>
+                <div class="loot-header">Remove</div>
+
+                <div id="lootRows"></div>
+            </div>
+
+            <div class="total-display">
+                <span>Total Loot:</span>
+                <span id="totalLoot">$0.00</span>
+            </div>
+        </section>
+<!--calculating the split for loot -->
+        <section class="panel" id="panel-split">
+            <h2>Split Loot</h2>
+            <button id="splitLootBtn" disabled>Split Loot</button>
+            <p class="error-msg" id="splitError"></p>
+            <div class="results-area hidden" id="resultsArea">
+                <div class="result-row">
+                    <span>Total Loot:</span>
+                    <span id="splitTotal">--</span>
+                </div>
+                <div class="result-row highlight">
+                    <span>Loot Per Party Member:</span>
+                    <span id="splitPerMember">--</span>
+                </div>
+            </div>
+        </section>
+<!--explaining the code-->
+        <section class="panel reflection" id="panel-logic">
+            <h2>Reflection Assignment</h2>
+            <p>
+                State is saved by putting <code>lootItems</code> and <code>partySize</code> into one object 
+                and storing it in <code>localStorage</code> whenever the data changes. When the page loads, 
+                the program reads that object from <code>localStorage</code>, checks that the data is valid, 
+                and restores it back into the variables. The saved party size is also placed back into the 
+                input field so the user can see it.
+            </p>
+            <p>
+                <code>updateUI()</code> is called after restoring the data because loading the variables alone does 
+                not update the screen. The <code>lootItems</code> array could exist in memory, but the page would still 
+                appear empty until the interface is rebuilt. Calling <code>updateUI()</code> makes the restored data visible.
+            </p>
+            <p>
+                <code>JSON.stringify()</code> converts a JavaScript object into text so it can be stored in 
+                <code>localStorage</code>, which only stores strings. <code>JSON.parse()</code> converts that
+                text back into a JavaScript object the program can use.
+            </p>
+            <p>
+                While testing with a breakpoint inside <code>restoreState()</code>, I paused the code after
+                <code>JSON.parse()</code> and checked the parsed object in the browser developer tools. I could 
+                see the saved <code>lootItems</code> and <code>partySize</code>, confirming the data was still 
+                there after the page reload.
+            </p>
+            <p>
+                This phase connects to the course outcome of building programs where data controls the interface 
+                and state is managed separately from the UI.
+            </p>
+        </section>
+
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
